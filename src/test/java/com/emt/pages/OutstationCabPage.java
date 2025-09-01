@@ -256,20 +256,40 @@ public class OutstationCabPage {
 	 * @param time Time string in HH:mm AM/PM format
 	 */
 	public void pickupTime(String time) {
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 		String[] timeParts = time.split("[: ]");
 		String hours = timeParts[0];
 		String minutes = timeParts[1];
 		String meridian = timeParts[2];
 
-		if (meridian.equals("AM")) {
-			amSelectorPickup.click();
-		} else if (meridian.equals("PM")) {
-			pmSelectorPickup.click();
-		}
+		try {
+			if (meridian.equals("AM")) {
+				// Wait for AM selector to be clickable and click it
+				wait.until(ExpectedConditions.elementToBeClickable(amSelectorPickup));
+				amSelectorPickup.click();
+			} else if (meridian.equals("PM")) {
+				// Wait for PM selector to be clickable and click it
+				wait.until(ExpectedConditions.elementToBeClickable(pmSelectorPickup));
+				pmSelectorPickup.click();
+			}
 
-		driver.findElement(By.xpath("//div[@id='hr']//ul//li[normalize-space()='" + hours + " Hr.']")).click();
-		driver.findElement(By.xpath("//div[@id='min']//ul//li[normalize-space()='" + minutes + " Min.']")).click();
-		pickupDoneBtn.click();
+			// Wait and select hours
+			WebElement hoursElement = wait.until(ExpectedConditions.elementToBeClickable(
+				By.xpath("//div[@id='hr']//ul//li[normalize-space()='" + hours + " Hr.']")));
+			hoursElement.click();
+
+			// Wait and select minutes
+			WebElement minutesElement = wait.until(ExpectedConditions.elementToBeClickable(
+				By.xpath("//div[@id='min']//ul//li[normalize-space()='" + minutes + " Min.']")));
+			minutesElement.click();
+
+			// Wait for done button to be clickable and click it
+			wait.until(ExpectedConditions.elementToBeClickable(pickupDoneBtn));
+			pickupDoneBtn.click();
+		} catch (Exception e) {
+			System.out.println("Error selecting pickup time: " + e.getMessage());
+			throw e;
+		}
 	}
 
 	/**
@@ -285,20 +305,40 @@ public class OutstationCabPage {
 	 * @param time Time string in HH:mm AM/PM format
 	 */
 	public void returnTime(String time) {
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 		String[] timeParts = time.split("[: ]");
 		String hours = timeParts[0];
 		String minutes = timeParts[1];
 		String meridian = timeParts[2];
 
-		if (meridian.equals("AM")) {
-			amSelectorReturn.click();
-		} else if (meridian.equals("PM")) {
-			pmSelectorReturn.click();
-		}
+		try {
+			if (meridian.equals("AM")) {
+				// Wait for AM selector to be clickable and click it
+				wait.until(ExpectedConditions.elementToBeClickable(amSelectorReturn));
+				amSelectorReturn.click();
+			} else if (meridian.equals("PM")) {
+				// Wait for PM selector to be clickable and click it
+				wait.until(ExpectedConditions.elementToBeClickable(pmSelectorReturn));
+				pmSelectorReturn.click();
+			}
 
-		driver.findElement(By.xpath("//div[@id='rhr']//ul//li[normalize-space()='" + hours + " Hr.']")).click();
-		driver.findElement(By.xpath("//div[@id='rmin']//ul//li[normalize-space()='" + minutes + " Min.']")).click();
-		returnDoneBtn.click();
+			// Wait and select hours
+			WebElement hoursElement = wait.until(ExpectedConditions.elementToBeClickable(
+				By.xpath("//div[@id='rhr']//ul//li[normalize-space()='" + hours + " Hr.']")));
+			hoursElement.click();
+
+			// Wait and select minutes
+			WebElement minutesElement = wait.until(ExpectedConditions.elementToBeClickable(
+				By.xpath("//div[@id='rmin']//ul//li[normalize-space()='" + minutes + " Min.']")));
+			minutesElement.click();
+
+			// Wait for done button to be clickable and click it
+			wait.until(ExpectedConditions.elementToBeClickable(returnDoneBtn));
+			returnDoneBtn.click();
+		} catch (Exception e) {
+			System.out.println("Error selecting return time: " + e.getMessage());
+			throw e;
+		}
 	}
 
 	/**
