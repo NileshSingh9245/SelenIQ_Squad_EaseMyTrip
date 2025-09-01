@@ -17,7 +17,7 @@ public class AllureReportOpener {
         try {
             // Step 1: Generate Allure report from target/allure-results
             ProcessBuilder generate = new ProcessBuilder(
-                    "C:\\Users\\2421255\\OneDrive - Cognizant\\Desktop\\java core\\hackathon\\allure-2.34.1\\bin\\allure.bat",
+                    "C:\\Users\\2421255\\Downloads\\EaseMyTrip_Hackathon\\allure-2.34.1\\bin\\allure.bat",
                     "generate", "target/allure-results", "-o", "target/allure-report", "--clean");
             generate.inheritIO(); // Optionally shows output in the console
             Process genProcess = generate.start();
@@ -25,7 +25,7 @@ public class AllureReportOpener {
 
             // Step 2: Open the generated Allure report in the browser
             ProcessBuilder open = new ProcessBuilder(
-                    "C:\\Users\\2421255\\OneDrive - Cognizant\\Desktop\\java core\\hackathon\\allure-2.34.1\\bin\\allure.bat", 
+                    "C:\\Users\\2421255\\Downloads\\EaseMyTrip_Hackathon\\allure-2.34.1\\bin\\allure.bat", 
                     "open", "target/allure-report");
             open.inheritIO();
             Process openProcess = open.start();
